@@ -6,24 +6,42 @@ root.title("Calculator")
 entry = Entry(root, width=35, borderwidth=5)
 entry.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
 
+queue = []
+opr = []
 
 def button_click(number):
     current = entry.get()
     entry.delete(0, END)
     entry.insert(0, str(current) + str(number))
-    return
 
 
 def button_clear():
     entry.delete(0, END)
-    return
 
-def button_add():
-    return
+def button_operation(operation):
+    if not entry.get():
+        return
+    queue.append(entry.get())
+    opr.append(operation)
+    entry.delete(0, END)
+    print(queue)
+    print(opr)
 
-def button_sub():
-    return
-
+def button_equals():
+    if not entry.get():
+        return
+    queue.append(entry.get())
+    
+    result = int(queue.pop(0))
+    while(queue):
+        if opr.pop(0) == "+":
+            result += int(queue.pop(0))
+        else:
+            result -= int(queue.pop(0))
+    
+    entry.delete(0, END)
+    entry.insert(0, str(result))
+    
 #defining buttons
 button_1 = Button(root, text="1", padx=40, pady=20,
                   command=lambda: button_click(1))
@@ -46,11 +64,11 @@ button_9 = Button(root, text="9", padx=40, pady=20,
 button_0 = Button(root, text="0", padx=40, pady=20,
                   command=lambda: button_click(0))
 button_add = Button(root, text="add", padx=33, pady=20,
-                    command=lambda: button_click())
+                    command=lambda: button_operation("+"))
 button_sub = Button(root, text="sub", padx=33, pady=20,
-                    command=lambda: button_click())
+                    command=lambda: button_operation("-"))
 button_eqs = Button(root, text="=", padx=145, pady=20,
-                    command=lambda: button_click())
+                    command=button_equals)
 button_clr = Button(root, text="Clear", padx=130,
                     pady=20, command=button_clear)
 
