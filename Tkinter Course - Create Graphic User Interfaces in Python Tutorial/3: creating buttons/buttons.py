@@ -6,7 +6,7 @@ def myClick():
 
 root = Tk()
 
-myButton = Button(root, text="Click Me", padx=30, pady=5)
+myButton = Button(root, text="Click Me", command=myClick, fg="green", bg="black")
 myButton.pack()
 
 root.mainloop()
