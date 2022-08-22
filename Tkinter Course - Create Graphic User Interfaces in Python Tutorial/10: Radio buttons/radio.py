@@ -1,20 +1,24 @@
 from tkinter import *
 root = Tk() 
 
-rb = IntVar()
-
 def clicked(val):
     global myLabel
     myLabel.configure(text=val)
 
-Radiobutton(root, text='Option 1', variable=rb, value=1, padx=5, pady=5).pack()
-Radiobutton(root, text='Option 2', variable=rb, value=2, padx=5, pady=5).pack()
-Radiobutton(root, text='Option 3', variable=rb, value=3, padx=5, pady=5).pack()
+modes = [("X-bacon", "X-bacon"), ("X-salada", "X-salada"),
+         ("X-ratão", "X-ratão"), ("X-brguer", "X-burguer")]
 
-myLabel = Label(root, text=rb.get())
-myLabel.pack()
+burguer = StringVar()
+burguer.set("X-burguer")
 
-myButton = Button(root, text='Click Me', command=lambda: clicked("Option: " + str(rb.get())))
-myButton.pack(padx=5, pady=5)
-#mainloop
-root.mainloop() #this will keep the window open until you close it
+for text, mode in modes:
+    Radiobutton(root, text=text, variable=burguer,
+                value=mode, padx=5, pady=5).pack(anchor=CENTER)
+
+myButton = Button(root, text='Ok', command=lambda: clicked("Option: " + str(burguer.get())))
+myButton.pack(padx=10, pady=10)
+
+myLabel = Label(root, text="Option: " + str(burguer.get()))
+myLabel.pack(padx=5, pady=5)
+
+root.mainloop()
