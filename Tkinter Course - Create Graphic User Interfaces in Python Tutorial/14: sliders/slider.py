@@ -4,16 +4,11 @@ from PIL import Image, ImageTk
 
 root = Tk()
 root.title("Slider")
-root.geometry("400x250")
-
-vertical = Scale(root, from_=500, to=200, orient=VERTICAL)
-horizontal = Scale(root, from_=200, to=500, orient=HORIZONTAL)
-
-vertical.pack()
-horizontal.pack()
+root.geometry("200x200")
 
 phone_number = Label(root, text="Phone Number: ")
 phone_number.pack()
+
 
 def sliders():
     global phone_number
@@ -21,6 +16,12 @@ def sliders():
     root.geometry(str(vertical.get()) + "x" + str(horizontal.get()))
     root.update()
 
-btn = Button(root, text="Save", command=sliders).pack()
+
+vertical = Scale(root, from_=500, to=200, orient=VERTICAL, command=print)
+horizontal = Scale(root, from_=200, to=500, orient=HORIZONTAL, command=print)
+vertical.pack()
+horizontal.pack()
+
+btn = Button(root, text="Set", command=sliders).pack()
 
 mainloop()
